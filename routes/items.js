@@ -6,16 +6,18 @@ router.get('/get-all', async (req, res) => {
 
     let items = []
     let status = 200;
+    console.log('here');
     try {
 
         items = await Ticket.find().sort({
             createdAt: 'desc'
         }).exec();
+
+
     } catch {
         items = [];
-        status = 500;
+        status = 404;
     }
-
     res.status(status).json(items);
 });
 
@@ -43,7 +45,9 @@ router.post('/create-ticket', async (req, res) => {
         console.log(e);
     }
 
-    res.status(202);
+    res.status(202).json({
+        msg: "success"
+    });
 });
 
 router.delete('/delete-ticket/:id', async (req, res) => {
